@@ -21,30 +21,26 @@ namespace FizzBuzz.Tests
         [Test]
         public void TestConstructor()
         {
-            FizzBuzzService subject = new(1, 100);
+            FizzBuzzService subject = new();
             Assert.IsInstanceOf(typeof(FizzBuzzService), subject);
-            Assert.AreEqual(1, subject.Start);
-            Assert.AreEqual(100, subject.End);
         }
 
         [Test]
         public void TestConstructorWithDifferentRules()
         {
-            FizzBuzzService subject = new(1, 100, differentRules);
+            FizzBuzzService subject = new(differentRules);
             Assert.IsInstanceOf(typeof(FizzBuzzService), subject);
-            Assert.AreEqual(1, subject.Start);
-            Assert.AreEqual(100, subject.End);
             Assert.AreEqual(differentRules, subject.Rules);
         }
 
         [Test]
         public void TestRun()
         {
-            FizzBuzzService subject = new(1, 9);
-            using (StringWriter sw = new StringWriter())
+            FizzBuzzService subject = new();
+            using (StringWriter sw = new())
             {
                 Console.SetOut(sw);
-                subject.Run();
+                subject.Run(1,9);
 
                 string expected = string.Format(
                     "1: 1{0}2: 2{0}3: Fizz{0}4: 4{0}5: Buzz{0}6: Fizz{0}7: 7{0}8: 8{0}9: Fizz{0}",
@@ -57,7 +53,7 @@ namespace FizzBuzz.Tests
         [Test]
         public void TestParse()
         {
-            FizzBuzzService subject = new(1, 105, differentRules);
+            FizzBuzzService subject = new(differentRules);
             Assert.AreEqual("1", subject.Parse(1));
             Assert.AreEqual("2", subject.Parse(2));
             Assert.AreEqual("Fizz", subject.Parse(3));

@@ -5,40 +5,34 @@ namespace FizzBuzz
 {
     public class FizzBuzzService
     {
-        public int Start { get; init; }
-        public int End { get; init; }
         public Func<int, string>[] Rules { get; init; }
 
-        public FizzBuzzService(int Start, int End)
+        public FizzBuzzService()
         {
-            this.Start = Start;
-            this.End = End;
             //Use default FizzBuzz rules
-            this.Rules = new Func<int, string>[] {
+            Rules = new Func<int, string>[] {
                 (int i) => (i % 3) == 0 ? "Fizz" : null,
                 (int i) => (i % 5) == 0 ? "Buzz" : null
             };
         }
 
-        public FizzBuzzService(int Start, int End, Func<int, string>[] Rules)
+        public FizzBuzzService(Func<int, string>[] rules)
         {
-            this.Start = Start;
-            this.End = End;
-            this.Rules = Rules;
+            Rules = rules;
         }
 
-        public void Run()
+        public void Run(int start, int end)
         {
-            for (int i = Start; i <= End; i++)
+            for (int i = start; i <= end; i++)
             {
                 Console.WriteLine($"{ i }: { Parse(i) }");
             }
         }
 
-        public string Parse(int i)
+        public string Parse(int step)
         {
-            string result = string.Join("", from rule in Rules select rule(i));
-            return (result != "") ? result : i.ToString();
+            string result = string.Join("", from rule in Rules select rule(step));
+            return (result != "") ? result : step.ToString();
         }
     }
 }
